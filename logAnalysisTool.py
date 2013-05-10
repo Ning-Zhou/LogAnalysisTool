@@ -3,6 +3,7 @@
 import argparse
 
 parser = argparse.ArgumentParser()
+parser.add_argument("-hl","--highlight", help="just to highlight, otherwise it's filter", action = "store_true")
 parser.add_argument("keywords", help=" keywords should be like \"keyword1|keyword2|..|keywordN\"")
 parser.add_argument("filename", help=" just filename ")
 
@@ -31,9 +32,11 @@ print sub_command
 command = ''
 command = command + sub_command
 
+IsHighLight = '|' if args.highlight else ''
+
 for v in range(1,len(keywords[1:])+1):    
     color_setting = 'GREP_COLOR='+"\'"+colors[v%13]+"\'"
-    keyword_tmp = '\''+keywords[v]+'|'+'\''    
+    keyword_tmp = '\''+keywords[v]+IsHighLight+'\''    
     sub_command = ' '.join([' | '+color_setting, egrep, keyword_tmp])
     command = command + sub_command
 
