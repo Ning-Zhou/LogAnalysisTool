@@ -32,13 +32,16 @@ print sub_command
 command = ''
 command = command + sub_command
 
-IsHighLight = '|' if args.highlight else ''
-
 for v in range(1,len(keywords[1:])+1):    
     color_setting = 'GREP_COLOR='+"\'"+colors[v%13]+"\'"
-    keyword_tmp = '\''+keywords[v]+IsHighLight+'\''    
+    keyword_tmp = '\''+keywords[v]+'|'+'\''    
     sub_command = ' '.join([' | '+color_setting, egrep, keyword_tmp])
     command = command + sub_command
+
+if not args.highlight:
+    sub_command = ' '.join([' | ' , 'egrep -i' ,'\''+args.keywords+'\''])
+    command = command + sub_command
+
 
 
 import os
