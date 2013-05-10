@@ -27,7 +27,6 @@ filename = args.filename
 
 sub_command = ' '.join([color_setting, egrep, keyword_1st, filename])
 
-print sub_command
 
 command = ''
 command = command + sub_command
@@ -45,7 +44,6 @@ if not args.highlight:
 
 
 import os
-print command
 os.system(command)
 os.system('echo ' +'"' + command + '"' + ' | cat > ' + 'filter.' + filename + '.sh')
 os.system('chmod 755 ' + 'filter.' + filename + '.sh')
