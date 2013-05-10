@@ -44,5 +44,5 @@ for v in range(1,len(keywords[1:])+1):
 import os
 print command
 os.system(command)
-#grep-color = "egrep --color=always -i"
-#GREP_COLOR = '32' 
+os.system('echo ' +'"' + command + '"' + ' | cat > ' + 'filter.' + filename + '.sh')
+os.system('chmod 755 ' + 'filter.' + filename + '.sh')
