@@ -2,7 +2,7 @@
 
 import argparse
 
-parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser(description='For anything you want to contact the author, try this e-mail: nathon.py@gmail.com')
 parser.add_argument("-hl","--highlight", help="just to highlight, otherwise it's filter", action = "store_true")
 parser.add_argument("keywords", help=" keywords should be like \"keyword1|keyword2|..|keywordN\"")
 parser.add_argument("filename", help=" just filename ")
@@ -20,26 +20,23 @@ if len(keywords) > 13:
     
 
 color_setting = 'GREP_COLOR='+"\'"+colors[0]+"\'" 
-
-keyword_1st = '\''+keywords[0]+'|'+'\''
-
 filename = args.filename
-
-sub_command = ' '.join([color_setting, egrep, keyword_1st, filename])
-
-
 command = ''
+
+
+if not args.highlight:
+    sub_command = ' '.join([ 'egrep -i' ,'\''+args.keywords+'\'', filename])
+    
+else:
+    sub_command = ' '.join(['cat',filename])
 command = command + sub_command
 
-for v in range(1,len(keywords[1:])+1):    
+for v in range(0,len(keywords)):    
     color_setting = 'GREP_COLOR='+"\'"+colors[v%13]+"\'"
     keyword_tmp = '\''+keywords[v]+'|'+'\''    
     sub_command = ' '.join([' | '+color_setting, egrep, keyword_tmp])
     command = command + sub_command
 
-if not args.highlight:
-    sub_command = ' '.join([' | ' , 'egrep -i' ,'\''+args.keywords+'\''])
-    command = command + sub_command
 
 
 
